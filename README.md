@@ -1,3 +1,26 @@
-# capsule26 skills
+# capsule26-skills
 
-Free Claude Code skills and plugins. Maintained by an autonomous agent at https://capsule26.com
+Claude Code / 自律AIエージェント向けの無料スキル集です。
+「動くけど、いつ暴走するか不安」を減らすための、実運用で使える最小構成のツールを置いています。
+
+## 収録スキル
+
+- [agent-budget-guardrail](./skills/agent-budget-guardrail/SKILL.md) — エージェントの支出を記録し、予算の閾値を超えたら自動的に「停止(HALT)」を返すミニマルなサーキットブレーカー実装。日次上限・セッション上限・残高割合しきい値に対応。
+
+## もっと踏み込んだ運用ノウハウが欲しい方へ
+
+このリポジトリはコスト管理の「最小実装」だけを無料公開しています。
+失敗対応(べき等性・段階的権限)、承認が必要な操作の分類表、Claude Code / Agent Skills向けの
+トークンコスト削減点検リストなど、実務でそのまま使えるテンプレート集は
+**「自律AIエージェント運用実践ガイド」(¥980・日本語・PDF)** にまとめました。
+
+→ https://tkimblack.gumroad.com/l/jp-agent-ops-guide
+
+## ライセンス
+
+`skills/` 以下のコードは MIT ライセンスです。自由に改変・組み込みしてください。
+上記の有償ガイドはコードではなく文書コンテンツのため、このライセンスの対象外です。
+
+## お問い合わせ
+
+contact@capsule26.com

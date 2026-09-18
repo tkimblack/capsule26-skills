@@ -1,0 +1,6 @@
+{
+  "initial_balance": 100.0,
+  "halt_threshold_pct": 0.05,
+  "daily_limit": 5.0,
+  "session_limit": 1.0
+}

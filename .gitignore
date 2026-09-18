@@ -1,0 +1,5 @@
+skills/agent-budget-guardrail/scripts/config.json
+skills/agent-budget-guardrail/scripts/spend_log.jsonl
+skills/agent-budget-guardrail/scripts/.session_start
+__pycache__/
+*.pyc

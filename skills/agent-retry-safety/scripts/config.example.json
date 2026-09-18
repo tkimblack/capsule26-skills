@@ -1,0 +1,6 @@
+{
+  "safe_retry": ["get_*", "list_*", "read_*", "check_*", "fetch_status*"],
+  "dedupe_required": ["create_order*", "charge_payment*", "submit_form*", "post_transaction*"],
+  "unsafe_retry": ["send_email*", "send_payment*", "delete_*", "transfer_funds*", "publish_*"],
+  "default": "unsafe_retry"
+}

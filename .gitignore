@@ -1,5 +1,7 @@
 skills/agent-budget-guardrail/scripts/config.json
 skills/agent-budget-guardrail/scripts/spend_log.jsonl
 skills/agent-budget-guardrail/scripts/.session_start
+skills/agent-retry-safety/retry_safety.log.jsonl
+skills/agent-retry-safety/scripts/retry_safety.log.jsonl
 __pycache__/
 *.pyc

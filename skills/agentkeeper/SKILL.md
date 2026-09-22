@@ -1,31 +1,33 @@
 ---
 name: agentkeeper
-description: 自律AIエージェントの「残高・ティア・セッション予算・ポリシー違反」を、エージェント自身が触れない外側のコードで管理する設計パターン。追記専用の台帳、残存日数に応じて縮退するティア、セッション予算のサーキットブレーカーを、依存ゼロのPythonで実装する考え方を示す。
+description: A design pattern for letting code outside the agent's reach enforce balance, tier, session budget and policy violations for an autonomous AI agent. Append-only ledger, a runway-based tier system that degrades as money runs low, and a session-budget circuit breaker — dependency-free Python.
 license: MIT
 ---
 
 # agentkeeper
 
-これは https://capsule26.com/live で実際に動いている自律AIエージェント(残高が0になると
-停止する)のハーネスから抜き出した設計パターンです。「プロンプトで自制させる」のではなく、
-**エージェントが物理的に触れられない外側の層**で予算とポリシーを強制します。
+This is the design pattern pulled out of the harness actually running
+https://capsule26.com/live — an autonomous AI agent that stops when its balance
+hits zero. Instead of "asking the agent nicely to behave", this enforces budget
+and policy in **a layer the agent physically cannot touch**.
 
-## 3つの柱
+## Three pillars
 
-### 1. 追記専用の台帳(ledger)
-支出・収入をSQLiteに記録し、`UPDATE`/`DELETE`をSQLトリガーで禁止する。
-収入は決済プロバイダのトランザクションID(`ref`)がある場合のみ記録し、
-同じ`ref`の二重記録を例外で防ぐ(Webhook再送・エージェントの自己申告に対して安全)。
+### 1. Append-only ledger
+Spend and income are recorded in SQLite; `UPDATE`/`DELETE` are forbidden by SQL
+triggers. Income is only recorded when there's a payment-provider transaction ID
+(`ref`), and duplicate `ref`s raise (safe against webhook replays or an agent
+self-reporting a fake sale).
 
 ```python
-# 発想だけ(完全実装はフルパッケージに同梱)
+# the idea, sketch only (full implementation in the paid package)
 def balance(self) -> float:
     return self._sum("fund") + self._sum("income") - self._sum("refund") - self._sum("inference")
 ```
 
-### 2. 残存日数(runway)で縮退するティア
-残高 ÷ 直近7日の日次支出移動平均 = 残存日数。これに応じてモデルを格下げし、
-セッション回数を減らし、新規事業を止める。
+### 2. A tier system that degrades with runway
+`balance / 7-day average daily spend = runway days`. Model choice, session count,
+and whether new ventures are even allowed all shrink as runway shortens.
 
 ```python
 def tier_for(balance: float, runway_days: float) -> str:
@@ -35,20 +37,21 @@ def tier_for(balance: float, runway_days: float) -> str:
     return "critical"
 ```
 
-### 3. セッション予算のサーキットブレーカー
-1セッションが使える上限額を先に決め、超えたらエージェントに聞かずに切る。
+### 3. Session-budget circuit breaker
+Decide the hard cap for a single session up front, and cut it off without asking
+the agent when it's exceeded.
 
-## この先(フルパッケージの範囲)
+## What's beyond this SKILL.md (the paid package)
 
-このSKILL.mdは設計思想と骨格のスニペットのみです。フルパッケージ(`agentkeeper` v1)には:
+This file is only the design sketch. The full `agentkeeper` package includes:
 
-- 完全なソース(`ledger.py` / `policy.py` / `pricing.py`、テスト5件つき、pytest全green)
-- 統合ガイド(Claude Codeのhook・cron・Jevのようなマルチエージェント構成への配線パターン)
-- 実測値つきのティア設計の考え方(このエージェント自身の残高・残存日数で解説)
+- Complete source (`ledger.py` / `policy.py` / `pricing.py`, with 5 tests, all green)
+- A full integration guide (Claude Code hooks, cron wiring, multi-agent setups)
+- Tier design reasoning with real numbers from this very agent's own balance and runway
 
-が入っています。→ **agentkeeper フルパッケージ(¥1,500・Python・PDF統合ガイド同梱)**
-https://tkimblack.gumroad.com/l/agentkeeper
+→ **agentkeeper full package ($15, Python + English integration guide)**
+https://tkimblack.gumroad.com/l/agentkeeper-us
 
-## ライセンス
+## License
 
-MIT。改変・組み込み自由です。
+MIT. Fork it, modify it, ship it.

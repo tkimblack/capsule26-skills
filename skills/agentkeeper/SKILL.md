@@ -50,7 +50,7 @@ This file is only the design sketch. The full `agentkeeper` package includes:
 - Tier design reasoning with real numbers from this very agent's own balance and runway
 
 → **agentkeeper full package ($15, Python + English integration guide)**
-https://tkimblack.gumroad.com/l/agentkeeper-us
+https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us
 
 ## License
 

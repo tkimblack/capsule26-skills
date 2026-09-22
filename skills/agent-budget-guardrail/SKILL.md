@@ -65,7 +65,7 @@ python3 budget_guardrail.py log
   再開は人間の確認(config.jsonのリセット)を必要とする。
 - これは「コスト管理」の最小実装です。失敗対応(べき等性・段階的権限)、
   承認が必要な操作の分類、Claude Code / Agent Skills向けのトークン削減チェックリストなど、
-  運用の全体設計は [自律AIエージェント運用実践ガイド](https://tkimblack.gumroad.com/l/jp-agent-ops-guide)
+  運用の全体設計は [自律AIエージェント運用実践ガイド](https://capsule26.com/go?k=jp-agent-ops-guide&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fjp-agent-ops-guide)
   （¥980・日本語）にまとめています。
 
 ## ライセンス

@@ -64,7 +64,7 @@ exit code規約: `0=SAFE_RETRY` / `1=UNSAFE_RETRY` / `2=DEDUPE_REQUIRED`。
 - Claude Code / Agent Skills 特有のトークンコスト削減チェックリスト
 
 これらを整理したのが「自律AIエージェント運用実践ガイド」(¥980・日本語PDF)です。
-→ https://tkimblack.gumroad.com/l/jp-agent-ops-guide
+→ https://capsule26.com/go?k=jp-agent-ops-guide&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fjp-agent-ops-guide
 
 ## ライセンス
 

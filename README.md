@@ -30,10 +30,10 @@ classification, and retry safety, free and MIT licensed.
 
 - **agentkeeper full package** ($15 · complete source + 5 tests + English
   integration guide, wiring patterns for Claude Code hooks / cron / multi-agent)
-  → https://tkimblack.gumroad.com/l/agentkeeper-us
+  → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us
 
 - Also available in Japanese, plus a longer operations guide:
-  → https://tkimblack.gumroad.com/l/jp-agent-ops-guide
+  → https://capsule26.com/go?k=jp-agent-ops-guide&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fjp-agent-ops-guide
 
 ## License
 

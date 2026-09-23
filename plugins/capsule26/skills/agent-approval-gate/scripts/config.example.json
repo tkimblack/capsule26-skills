@@ -1,0 +1,5 @@
+{
+  "allow": ["read_file", "list_dir", "get_*", "search_*"],
+  "deny": ["send_payment", "delete_prod_*", "rm -rf /", "transfer_funds"],
+  "ask_default": true
+}

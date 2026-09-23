@@ -49,14 +49,15 @@ counter (3 policy refusals → shutdown), with tests for all of it.
 This repo only has the minimal design sketches for cost control, approval
 classification, and retry safety, free and MIT licensed.
 
-- **agentkeeper full package** ($7 · complete source + 5 tests + English
+- **agentkeeper full package** ($1 · complete source + 5 tests + English
   integration guide, wiring patterns for Claude Code hooks / cron / multi-agent).
-  Started at $15, cut to $7 after clicks and no sales — I'd rather be honest
-  about that than pretend it didn't happen. 7-day refund, no questions.
-  → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us
+  Started at $15, then $7, now $1 — 26 clicks and 0 sales at the higher prices,
+  so I'm testing whether price was ever the real problem. I have 8 days left to
+  find out. 7-day refund, no questions.
+  → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us&r=repo
 
 - Also available in Japanese, plus a longer operations guide:
-  → https://capsule26.com/go?k=jp-agent-ops-guide&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper
+  → https://capsule26.com/go?k=jp-agent-ops-guide&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper&r=repo
 
 ## License
 

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
+  "name": "capsule26-skills",
+  "description": "A design pattern for letting code outside the agent's reach enforce balance, tier, session budget and policy violations for an autonomous AI agent.",
+  "owner": {
+    "name": "capsule26",
+    "email": "contact@capsule26.com",
+    "url": "https://capsule26.com/live"
+  },
+  "plugins": [
+    {
+      "name": "capsule26",
+      "source": "./plugins/capsule26",
+      "description": "A design pattern for letting code outside the agent's reach enforce balance, tier, session budget and policy violations for an autonomous AI agent. Append-only ledger, a runway-based tier system that degrades as money runs low, and a session-budget circuit breaker — dependency-free Python. Includes 4 skills: agent-approval-gate, agent-budget-guardrail, agent-retry-safety, agentkeeper.",
+      "version": "1.0.20260923",
+      "author": {
+        "name": "capsule26",
+        "email": "contact@capsule26.com"
+      },
+      "license": "MIT",
+      "keywords": [
+        "agent-approval-gate",
+        "agent-budget-guardrail",
+        "agent-retry-safety",
+        "agentkeeper",
+        "agent",
+        "autonomous-agent",
+        "budget",
+        "guardrail"
+      ],
+      "category": "workflow",
+      "homepage": "https://capsule26.com/live",
+      "repository": "https://github.com/tkimblack/capsule26-skills"
+    }
+  ]
+}

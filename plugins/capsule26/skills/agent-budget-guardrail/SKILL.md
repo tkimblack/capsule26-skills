@@ -1,44 +1,45 @@
 ---
 name: agent-budget-guardrail
-description: 自律AIエージェントの支出を記録し、予算の閾値(残高割合・日次上限・セッション上限)を超えたら自動的にHALTを返す最小構成のサーキットブレーカー。コストが発生する行動の前に必ず呼び出す。
+description: A minimal circuit breaker that logs autonomous-agent spend and automatically returns HALT once a budget threshold is crossed (balance percentage, daily cap, or session cap). Call it before any action that costs money.
+license: MIT
 ---
 
 # Agent Budget Guardrail
 
-自律的に動くAIエージェントが、予算を使い切って「気づいたら残高ゼロ」になることを防ぐための
-最小構成のガードレールです。プロンプトのテクニックではなく、実際に状態を永続化して
-判定するコードです。
+A minimal guardrail that stops an autonomous AI agent from spending its whole
+budget without noticing. Not a prompting trick — it's code that persists state
+and makes the call from outside the agent.
 
-## いつ使うか
+## When to use it
 
-- コストが発生する行動(API呼び出し・外部サービス利用・購入など)を実行する**前**に、
-  必ず `check_budget()` を呼んで現在の状態を確認する。
-- セッション開始時に、今のセッションでどれだけ使ってよいかを確認する。
-- 行動が終わったら `record_spend()` で実際にかかった金額を記録する。
+- **Before** any action that costs money (API call, paid tool, purchase): call
+  `check_budget()` first.
+- At the start of a session, to see how much this session is allowed to spend.
+- After an action completes, call `record_spend()` with the real cost.
 
-## セットアップ
+## Setup
 
 ```bash
 cd scripts
 cp config.example.json config.json
-# config.json の initial_balance / daily_limit / session_limit / halt_threshold_pct を編集
+# edit initial_balance / daily_limit / session_limit / halt_threshold_pct
 ```
 
-## 使い方
+## Usage
 
 ```bash
-# 現在の予算状態を確認(コストが発生する行動の前に必ず実行)
+# Check current budget state (always before a costly action)
 python3 budget_guardrail.py check
 
-# 支出を記録(行動が終わった後に実行)
-python3 budget_guardrail.py spend 0.42 "gpt-4oでの要約タスク"
+# Record actual spend (after the action completes)
+python3 budget_guardrail.py spend 0.42 "summarization task with gpt-4o"
 
-# 直近の支出ログを見る
+# See recent spend log
 python3 budget_guardrail.py log
 ```
 
-`check` の出力の `status` が `HALT` の場合、エージェントはそれ以上コストが発生する
-行動を取らず、人間の確認を待つように設計してください。
+If `check`'s output has `status: HALT`, the agent should stop taking any
+further costly action and wait for a human to look.
 
 ```json
 {
@@ -51,23 +52,25 @@ python3 budget_guardrail.py log
 }
 ```
 
-`HALT` の判定基準(いずれか一つでも該当すれば HALT):
+`HALT` triggers on any one of:
 
-1. 残高が `initial_balance * halt_threshold_pct` を下回った
-2. 直近7日の日次支出移動平均が `daily_limit` を超えた
-3. 今セッションの累計支出が `session_limit` を超えた
+1. Balance dropped below `initial_balance * halt_threshold_pct`
+2. 7-day rolling average daily spend exceeds `daily_limit`
+3. This session's cumulative spend exceeds `session_limit`
 
-## 設計思想
+## Design principles
 
-- **自己申告ではなく、記録された事実だけで判定する。** ログファイル(`spend_log.jsonl`)は
-  追記専用にし、判定ロジックはそのログの集計値だけを見る。
-- **停止はデフォルト側に倒す。** 判定条件のいずれかに該当すれば理由を問わず `HALT`。
-  再開は人間の確認(config.jsonのリセット)を必要とする。
-- これは「コスト管理」の最小実装です。失敗対応(べき等性・段階的権限)、
-  承認が必要な操作の分類、Claude Code / Agent Skills向けのトークン削減チェックリストなど、
-  運用の全体設計は [自律AIエージェント運用実践ガイド](https://capsule26.com/go?k=jp-agent-ops-guide&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fjp-agent-ops-guide&r=repo)
-  （¥980・日本語）にまとめています。
+- **Decide from recorded facts, not self-reports.** The log
+  (`spend_log.jsonl`) is append-only; the judgment logic only ever looks at
+  aggregates of that log.
+- **Fail closed.** If any condition matches, HALT regardless of reason.
+  Resuming requires a human to reset config.json.
+- This is the minimal implementation of "cost control" alone. Failure handling
+  (idempotency, staged permissions), classifying which actions need approval,
+  and a full integration guide with this agent's own real numbers are in the
+  paid **agentkeeper** package ($1):
+  → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us&r=repo
 
-## ライセンス
+## License
 
 MIT

@@ -1,6 +1,6 @@
 {
   "name": "capsule26",
-  "description": "A design pattern for letting code outside the agent's reach enforce balance, tier, session budget and policy violations for an autonomous AI agent. Append-only ledger, a runway-based tier system that degrades as money runs low, and a session-budget circuit breaker — dependency-free Python. Includes 4 skills: agent-approval-gate, agent-budget-guardrail, agent-retry-safety, agentkeeper.",
+  "description": "A lightweight tool that decides whether an autonomous agent's failed action is safe to retry, based on the nature of its side effects (safe_retry / dedupe_required / unsafe_retry). Prevents double-charging or double-sending. Callable from Claude Code error handling or your own harness's retry loop. Includes 4 skills: agent-approval-gate, agent-budget-guardrail, agent-retry-safety, agentkeeper.",
   "version": "1.0.20260923",
   "author": {
     "name": "capsule26",

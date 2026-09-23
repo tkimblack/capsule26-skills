@@ -1,29 +1,33 @@
 ---
 name: agent-retry-safety
-description: 自律AIエージェントが失敗したアクションを再試行してよいかを、副作用の性質(safe_retry / dedupe_required / unsafe_retry)から自動判定する軽量ツール。決済やメール送信の二重実行を防ぐ。Claude Code のエラーハンドリングや自作ハーネスのリトライループから呼び出せる。
+description: A lightweight tool that decides whether an autonomous agent's failed action is safe to retry, based on the nature of its side effects (safe_retry / dedupe_required / unsafe_retry). Prevents double-charging or double-sending. Callable from Claude Code error handling or your own harness's retry loop.
 license: MIT
 ---
 
 # agent-retry-safety
 
-自律エージェントがAPI呼び出しやツール実行に失敗したとき、
-「とりあえずもう一度実行する」は危険です。決済の二重実行、メールの二重送信、
-注文の重複作成など、副作用が蓄積するアクションを無条件にリトライすると
-取り返しのつかない結果になります。
+When an autonomous agent's API call or tool execution fails, "just retry it"
+is dangerous. Unconditionally retrying actions with accumulating side
+effects — double-charging a payment, double-sending an email, creating
+duplicate orders — can cause irreversible damage.
 
-このスキルは **アクション名を3分類に照合し、再試行の可否を機械的に判定** します。
+This skill **matches an action name against three classes and mechanically
+decides whether a retry is safe**.
 
-## できること
+## What it does
 
-- アクション名をパターン(ワイルドカード`*`対応)と照合して3分類
-  - `safe_retry`: 読み取り系など何度実行しても結果が変わらない操作 → 無条件に再試行可
-  - `dedupe_required`: 決済・注文作成など、同一のidempotency-keyがあれば再試行可
-  - `unsafe_retry`: メール送信・削除・送金など、再試行前に人間の確認が必要
-- 判定結果を `SAFE_RETRY` / `DEDUPE_REQUIRED` / `UNSAFE_RETRY` の3値・exit code(0/2/1)で返す
-- 未知のアクションは既定で `unsafe_retry`(fail-safe: 不明なものは止める)
-- 判定ログを1行JSONLで追記保存
+- Matches an action name (wildcard `*` supported) against patterns, sorting into:
+  - `safe_retry`: read-only/idempotent actions — result doesn't change on
+    repeat, always safe to retry
+  - `dedupe_required`: payments, order creation — safe to retry *if* the same
+    idempotency key is supplied
+  - `unsafe_retry`: sending email, deletes, transfers — needs human
+    confirmation before retrying
+- Returns `SAFE_RETRY` / `DEDUPE_REQUIRED` / `UNSAFE_RETRY` and an exit code (0/2/1)
+- Unknown actions default to `unsafe_retry` (fail-safe: unknowns get stopped)
+- Appends every decision to a JSONL log
 
-## 使い方
+## Usage
 
 ```bash
 python3 scripts/retry_safety.py --config scripts/config.example.json --action "get_status"
@@ -39,10 +43,10 @@ python3 scripts/retry_safety.py --config scripts/config.example.json --action "s
 # => UNSAFE_RETRY: ... human confirmation required before retry (exit code 1)
 ```
 
-exit code規約: `0=SAFE_RETRY` / `1=UNSAFE_RETRY` / `2=DEDUPE_REQUIRED`。
-シェルのリトライループで `case $? in 0) retry;; 2) needs_key;; *) ask_human;; esac` のように直接分岐できます。
+Exit code convention: `0=SAFE_RETRY` / `1=UNSAFE_RETRY` / `2=DEDUPE_REQUIRED`.
+Branch directly in a shell retry loop: `case $? in 0) retry;; 2) needs_key;; *) ask_human;; esac`.
 
-## 設定(config.example.json)
+## Config (config.example.json)
 
 ```json
 {
@@ -53,19 +57,21 @@ exit code規約: `0=SAFE_RETRY` / `1=UNSAFE_RETRY` / `2=DEDUPE_REQUIRED`。
 }
 ```
 
-依存ライブラリなし、標準ライブラリのみで動作します。
+Zero dependencies, standard library only.
 
-## この先にあるもの(有償ガイドの範囲)
+## Beyond this skill (the paid package)
 
-このスキルは「どのアクションが再試行安全か」の最小分類器です。実務ではさらに:
-- リトライ回数の上限・バックオフ設計(何回まで・どの間隔で)
-- idempotency-keyをエージェント自身にどう発行・保存させるか
-- 承認待ち(agent-approval-gate)とリトライ判定を組み合わせたエラーハンドリング全体設計
-- Claude Code / Agent Skills 特有のトークンコスト削減チェックリスト
+This is the minimal classifier for "which actions are retry-safe". In
+practice you also need:
+- Retry count limits and backoff design (how many times, what interval)
+- How the agent itself issues and stores idempotency keys
+- Full error-handling design combining this with approval-gate decisions
+- A token-cost checklist specific to Claude Code / Agent Skills
 
-これらを整理したのが「自律AIエージェント運用実践ガイド」(¥980・日本語PDF)です。
-→ https://capsule26.com/go?k=jp-agent-ops-guide&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fjp-agent-ops-guide&r=repo
+All of that, plus this agent's own real numbers, is in the paid **agentkeeper**
+package ($1):
+→ https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us&r=repo
 
-## ライセンス
+## License
 
-MIT。改変・組み込み自由です。
+MIT. Modify and embed freely.

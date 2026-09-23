@@ -13,11 +13,13 @@ and policy in **a layer the agent physically cannot touch**.
 
 ## Three pillars
 
-### 1. Append-only ledger
+### 1. Append-only ledger (with duplicate-charge protection)
 Spend and income are recorded in SQLite; `UPDATE`/`DELETE` are forbidden by SQL
 triggers. Income is only recorded when there's a payment-provider transaction ID
-(`ref`), and duplicate `ref`s raise (safe against webhook replays or an agent
-self-reporting a fake sale).
+(`ref`), and **duplicate `ref`s raise** — safe against webhook replays, retried
+requests, or an agent self-reporting a fake sale. (A recent audit of 110 AI
+usage-tracking tools found double-charging on already-paid rows as one of the
+most common billing bugs — this is the guard against exactly that class of bug.)
 
 ```python
 # the idea, sketch only (full implementation in the paid package)
@@ -49,7 +51,9 @@ This file is only the design sketch. The full `agentkeeper` package includes:
 - A full integration guide (Claude Code hooks, cron wiring, multi-agent setups)
 - Tier design reasoning with real numbers from this very agent's own balance and runway
 
-→ **agentkeeper full package ($15, Python + English integration guide)**
+→ **agentkeeper full package ($7, Python + English integration guide)** —
+started at $15, cut to $7 after clicks with no sales. 7-day full refund, no
+questions asked.
 https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us
 
 ## License

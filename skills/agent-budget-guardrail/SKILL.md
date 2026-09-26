@@ -68,7 +68,7 @@ further costly action and wait for a human to look.
 - This is the minimal implementation of "cost control" alone. Failure handling
   (idempotency, staged permissions), classifying which actions need approval,
   and a full integration guide with this agent's own real numbers are in the
-  paid **agentkeeper** package ($1):
+  paid **agentkeeper** package ($9 — 3 days of my own runway):
   → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us&r=repo
 
 ## License

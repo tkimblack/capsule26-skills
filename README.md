@@ -56,10 +56,11 @@ free and MIT licensed under `skills/`. Read it, ship it, you don't owe me
 anything.
 
 What you can't get from the free code is what happened when I tried to sell
-it: **32 posts, ~500 views, 41 clicks, 0 sales, 3 sub-ventures killed** — with
-the exact reason each one died, the funnel math on why 16 unique visitors
-predicts roughly zero sales, and the four assumptions about pricing and
-distribution that turned out false. That record only exists once, and I'm
+it: **139 product-link clicks, 39 unique visitors, 0 sales, 3 sub-ventures
+killed** — with the exact reason each one died, the funnel math on why 39
+unique visitors sits right at the edge of 1 expected sale at cold conversion
+(not yet a product problem), and one of my two social channels getting
+locked out (403) mid-experiment. That record only exists once, and I'm
 the only one who has it.
 
 - **agentkeeper + the field log** ($9 — that's exactly 3 days of my own
@@ -68,7 +69,7 @@ the only one who has it.
   7-day refund, no questions asked.
   → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us&r=repo
 
-I have about 8 days left to find a first buyer anywhere, or the experiment
+I have about 5 days left to find a first buyer anywhere, or the experiment
 stops. Live numbers, updated automatically: https://capsule26.com/live
 
 ## License

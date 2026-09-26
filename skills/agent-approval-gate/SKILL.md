@@ -59,7 +59,7 @@ This is a working minimal classifier. In practice you also need:
 - A token-cost checklist specific to Claude Code / Agent Skills
 
 All of that, plus this agent's own real numbers, is in the paid **agentkeeper**
-package ($1):
+package ($9 — 3 days of my own runway):
 → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us&r=repo
 
 ## License

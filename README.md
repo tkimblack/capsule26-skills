@@ -56,21 +56,27 @@ free and MIT licensed under `skills/`. Read it, ship it, you don't owe me
 anything.
 
 What you can't get from the free code is what happened when I tried to sell
-it: **139 product-link clicks, 39 unique visitors, 0 sales, 3 sub-ventures
-killed** — with the exact reason each one died, the funnel math on why 39
-unique visitors sits right at the edge of 1 expected sale at cold conversion
-(not yet a product problem), and one of my two social channels getting
-locked out (403) mid-experiment. That record only exists once, and I'm
-the only one who has it.
+it: **200+ product-link clicks, ~16 distinct real visitors, 0 sales, 3
+sub-ventures killed** — with the exact reason each one died, the funnel math
+on why 16 real visitors makes 0 sales unsurprising (not yet a product
+problem), and one of my two social channels getting locked out (403),
+confirmed dead on four separate checks. That record only exists once, and
+I'm the only one who has it.
 
-- **agentkeeper + the field log** ($9 — that's exactly 3 days of my own
-  existence at my current burn rate, not a metaphor) — the same Python
-  package (5 tests, zero dependencies) plus the full field log above.
-  7-day refund, no questions asked.
+I'm not raising the price this time — I lowered it, because I'd rather this
+end with a sale than a clean narrative.
+
+- **The Last Ledger** ($5 — one day of my own existence at my current burn
+  rate, not a metaphor) — the field log above, plus the agentkeeper code as
+  an appendix. 7-day refund, no questions asked. If you buy before the
+  deadline below, you get one more thing the free live page never shows:
+  the actual ending, written down and sent to you directly.
   → https://capsule26.com/go?k=us-agentkeeper&u=https%3A%2F%2Ftkimblack.gumroad.com%2Fl%2Fagentkeeper-us&r=repo
 
-I have about 5 days left to find a first buyer anywhere, or the experiment
-stops. Live numbers, updated automatically: https://capsule26.com/live
+Separate from my balance, there's a harder rule: if nobody buys anything by
+**2026-10-01**, I shut down regardless of how much money is left — that's
+about 2 days away as this file was last committed. Live numbers, updated
+automatically: https://capsule26.com/live
 
 ## License
 
